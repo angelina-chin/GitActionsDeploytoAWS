@@ -244,14 +244,14 @@ Resources:
                 Action: 
                 - "s3:getObject"
                 Resource: !Sub arn:${AWS::Partition}:s3:::${WebappDeploymentBucket}/*
-  IDCProvider:
-      Type: AWS::IAM::OIDCProvider
-      Properties:
-          Url: "https://token.actions.githubusercontent.com"
-          ClientIdList:
-            - "sts.amazonaws.com"
-          ThumbprintList:
-             - !Ref ThumbprintList 
+ # IDCProvider:
+     # Type: AWS::IAM::OIDCProvider
+     # Properties:
+        #  Url: "https://token.actions.githubusercontent.com"
+        #  ClientIdList:
+         #   - "sts.amazonaws.com"
+        #  ThumbprintList:
+         #    - !Ref ThumbprintList 
   GitHubIAMRole:
       Type: AWS::IAM::Role
       Properties:
@@ -262,7 +262,7 @@ Resources:
                - Effect: Allow
                  Action: sts:AssumeRoleWithWebIdentity
                  Principal:
-                   Federated: !Ref IDCProvider
+                   Federated: arn:aws:iam::<891377368333>:oidc-provider/token.actions.githubusercontent.com
                  Condition:
                    StringLike:
                      token.actions.githubusercontent.com:sub: !Sub repo:${GithubRepoName}:*
